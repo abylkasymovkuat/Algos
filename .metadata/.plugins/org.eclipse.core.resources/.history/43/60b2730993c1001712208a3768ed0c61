@@ -1,0 +1,108 @@
+package Kon;
+
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Scanner;
+
+public class Graph {
+
+    int [][] arr;
+    int V, U;
+    boolean [][] bArr;
+    int [][] dist;
+    
+    int [] row = {2,2,-2,-2,-1,-1,1,1};
+    int [] col = {-1,1,1,-1,2,-2,2,-2};
+    
+    public Graph (int V){
+        this.V = V;
+        this.U = V;
+        arr = new int[V+2][U+2];
+        bArr = new boolean[V+2][U+2];
+        dist = new int [V+2][V+2];
+    }
+
+  
+    public boolean valid(int u, int v) {
+    	return !(u<0 || v<0 || v>=V || u>=V);
+    }
+   
+    public int BFS(int u, int v, int x , int y ) {
+    	
+    	
+    	
+    	 LinkedList<Integer> queue = new LinkedList<Integer>();
+    	 
+    	 bArr[u][v]= true;
+         queue.add(u);
+         queue.add(v);
+         dist[u][v] = 0;
+         
+         while (queue.size() != 0)
+         {
+            
+        	if(u==x && v == y) {
+         		return dist[u][v];
+         	}
+        	
+        	 int s = queue.poll();
+        	 int t = queue.poll();
+             //System.out.print(t+" "+s);
+       
+             for ( int i=0;i<8;i++) 
+             {
+            	 if(valid(t+col[i], s+row[i])) {
+            	 if(bArr[t+col[i]][s+row[i]]==false) 
+            	 {
+            		 
+            		 bArr[t+col[i]][s+row[i]]=true;
+            		 dist[t+col[i]][s+row[i]]=dist[t][s]+1;
+            		 
+            		 queue.add(t+col[i]);
+            		 queue.add(s+row[i]);
+            	 }
+  			 	}
+             }   
+         }
+		return (int) Math.PI;
+  }
+    
+    
+   
+    
+    public static void main(String args[]){
+
+   
+        Scanner sc = new Scanner(System.in);
+        Graph graph = new Graph(5);
+       System.out.println(graph.BFS(1, 1, 3, 1));
+        
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

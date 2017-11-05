@@ -1,0 +1,100 @@
+package Gryadki;
+
+import java.util.*;
+
+public class Graph {
+
+    private int V;   // No. of vertices
+    
+    // Array  of lists for Adjacency List Representation
+    private LinkedList<Integer>[] adj;
+    
+    public LinkedList<Integer>[] getAdj() {
+    	return adj;
+    }
+    
+    // Constructor
+    Graph(int v)
+    {
+        V = v;
+        adj = new LinkedList[v+1];
+        for (int i=1; i<=v; ++i)
+            adj[i] = new LinkedList();
+    }
+ 
+    //Function to add an edge into the graph
+    void addEdge(int v, int w)
+    {
+        adj[v].add(w);    // Add w to v's list.
+    }
+ 
+    // A function used by DFS
+    void DFSUtil(int v,boolean visited[])
+    {
+        // Mark the current node as visited and print it
+        visited[v] = true;
+        System.out.print(v+" ");
+ 
+        // Recur for all the vertices adjacent to this vertex
+        Iterator<Integer> i = adj[v].listIterator();
+        while (i.hasNext())
+        {
+            int n = i.next();
+            if (!visited[n])
+                DFSUtil(n,visited);
+        }
+    }
+ 
+    // The function to do DFS traversal. It uses recursive DFSUtil()
+    void DFS()
+    {
+        // Mark all the vertices as not visited(set as
+        // false by default in java)
+        boolean visited[] = new boolean[V+1];
+ 
+        // Call the recursive helper function to print DFS traversal
+        // starting from all vertices one by one
+        for (int i=1; i<=V; ++i)
+            if (visited[i] == false)
+                DFSUtil(i, visited);
+    }
+ 
+    public static void main(String args[])
+    {
+        Graph g = new Graph(4);
+ 
+        g.DFS();
+        
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int m = sc.nextInt();
+        for ( int i =1 ;i<=n;i++) 
+        {
+        	String ss = sc.nextLine();
+        	for ( int j =1;j<=m;j++) {
+        		if(ss.charAt(j)=='#') {
+        			g.addEdge(i, j);
+        		}
+        	}
+        }
+       System.out.println(g.getAdj());
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

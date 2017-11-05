@@ -1,0 +1,101 @@
+package Gryadki;
+
+import java.util.Scanner;
+
+public class Graph {
+
+    int [][] arr;
+    int V, U;
+    boolean [][] bArr;
+
+    
+    public Graph (int V, int U){
+        this.V = V;
+        this.U = U;
+        arr = new int[V+1][U+1];
+        bArr = new boolean[V+1][U+1];
+    }
+
+    public void addEdge(int src, int dst){
+        this.arr[src][dst] = 1;
+       // this.arr[dst][src] = 1;
+    }
+
+    public void printAll() {
+    	System.out.println();
+    	for ( int i=1;i<=V;i++) {
+    		for ( int j=1;j<=U;j++) 
+    		{
+    			System.out.print(arr[i][j]+ " ");
+    		}
+    		System.out.println();
+    	}
+    }
+    public void printMat(){
+
+        for ( int i =1;i<=this.V;i++)
+        {
+            System.out.print(i+ ":");
+            for ( int j=1;j<=this.U;j++){
+                if(arr[i][j]==1){
+                    System.out.print(" "+j);
+                }
+            }
+            System.out.println();
+        }
+    }
+
+    public boolean isTherePath(int u, int v){
+
+        if(u == v){
+
+            return true;
+        }
+
+        for ( int i =1;i<=this.V;i++)
+        {
+            for ( int j=1;j<=this.U;j++){
+                if(arr[j][i]==1){
+                    if(bArr[j][i]==bArr[i][j])
+                         {
+                            bArr[j][i] = true;
+                            return isTherePath(j, v);
+                         }
+                }
+            }
+        }
+        bArr = new boolean[V+1][U+1];
+        return false;
+    }
+    public static void main(String args[]){
+
+   
+        Scanner sc = new Scanner(System.in);
+//     	int V = sc.nextInt();
+//     	int U = sc.nextInt();
+        
+        String sss = sc.nextLine();
+        int V = Integer.parseInt(sss.split(" ")[0]);
+        int U = Integer.parseInt(sss.split(" ")[1]);
+        Graph adMatrix = new Graph(V, U);
+        
+      //  System.out.println(V+" "+U);
+        for ( int i=0;i<V;i++) 
+        {
+        	String ss = sc.nextLine();
+        	for ( int j=0;j<ss.length();j++) 
+        	{
+        		
+              if(ss.charAt(j)=='#')
+        	  adMatrix.addEdge(i+1,j+1);	
+        	}
+        }
+        
+        
+        adMatrix.printAll();
+        adMatrix.printMat();
+
+      // System.out.println(adMatrix.isTherePath(1,4)? "PORTOS":"ZOSOS");
+
+    }
+}

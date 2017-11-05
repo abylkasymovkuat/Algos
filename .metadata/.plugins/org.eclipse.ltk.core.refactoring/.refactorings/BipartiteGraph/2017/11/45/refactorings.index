@@ -1,0 +1,8 @@
+1509796173781	Rename local variable 'G'
+1509809291728	Rename method 'func'
+1509816983258	Rename method 'DFS'
+1509831110234	Delete element
+1509831179307	Rename type 'Graph'
+1509867041076	Rename field 'adj'
+1509867055661	Rename local variable 'g'
+1509877999475	Rename type 'AdList'

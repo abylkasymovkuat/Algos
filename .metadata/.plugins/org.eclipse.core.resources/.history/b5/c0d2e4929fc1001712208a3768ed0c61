@@ -1,0 +1,111 @@
+package Grid;
+
+import java.util.Scanner;
+
+public class Graph {
+
+    int [][] arr;
+    int V, U;
+    boolean [][] bArr;
+
+    
+    public Graph (int V, int U){
+        this.V = V;
+        this.U = U;
+        arr = new int[V+2][U+2];
+        bArr = new boolean[V+2][U+2];
+    }
+
+    public void addEdge(int src, int dst){
+        this.arr[src][dst] = 1;
+    }
+    
+    public void DFS(int u, int v) {
+    	
+    	
+    	bArr[u][v]= true;
+    	
+    	if(arr[u-1][v]==1 && bArr[u-1][v]==false) {
+    		DFS(u-1, v);
+    	}
+    	 if(arr[u+1][v]==1 && bArr[u+1][v]==false) {
+    		DFS(u+1, v);
+    	}
+    	 if(arr[u][v-1]==1 && bArr[u][v-1]==false) {
+    		DFS(u, v-1);
+    	}
+    	 if(arr[u][v+1]==1 && bArr[u][v+1]==false) {
+    		DFS(u, v+1);
+    	}
+    	
+    	
+    }
+    
+    
+   
+    
+    public static void main(String args[]){
+
+   
+        Scanner sc = new Scanner(System.in);
+        String sss = sc.nextLine();
+        int V = Integer.parseInt(sss.split(" ")[0]);
+        int U = Integer.parseInt(sss.split(" ")[1]);
+        Graph adMatrix = new Graph(V, U);
+        
+      //  System.out.println(V+" "+U);
+        for ( int i=0;i<V;i++) 
+        {
+        	String ss = sc.nextLine();
+        	for ( int j=0;j<ss.length();j++) 
+        	{
+        	  if(ss.charAt(j)=='1')
+        	  adMatrix.addEdge(i+1,j+1);	
+        	}
+        }
+        sss = sc.nextLine();
+         int um = Integer.parseInt(sss.split(" ")[0]);
+         int vm = Integer.parseInt(sss.split(" ")[1]);
+        
+      // System.out.println(adMatrix.getAllGryadkas());
+        adMatrix.DFS(V, U);
+        sss = sc.nextLine();
+        
+        V = Integer.parseInt(sss.split(" ")[0]);
+        U = Integer.parseInt(sss.split(" ")[1]);
+        System.out.println(V+" "+U);
+        if(adMatrix.bArr[um][vm]==adMatrix.bArr[V][U])
+        	System.out.println("yes");
+        else
+        	System.out.println("no");
+       
+ 
+
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
